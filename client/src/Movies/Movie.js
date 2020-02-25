@@ -4,7 +4,7 @@ import axios from 'axios';
 
 
 
-// const isMovieTrue = props.movie.id === `${movieId}`
+// const isMovieTrue = props.movie.id === `${id}`
 
 
 
@@ -25,12 +25,12 @@ import axios from 'axios';
 
 
 const Movie = (props) => {
-  const { movieId } = useParams()
-
+  const { id } = useParams()
+  console.log(props)
   const [movie, setMovie] = useState();
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/movies/${movieId}`)
+      .get(`http://localhost:5000/api/movies/${id}`)
       .then(response => {
         setMovie(response.data);
         console.log(response.data)
@@ -38,12 +38,13 @@ const Movie = (props) => {
       .catch(error => {
         console.error('Server Error', error);
       });
-  }, [movieId]);
-  const { title, director, metascore, stars } = movie;
-
+  }, [id]);
   if (!movie) {
     return <div>Loading movie information...</div>;
+
   }
+
+  const { title, director, metascore, stars } = movie;
 
   return (
     <div className="save-wrapper">
